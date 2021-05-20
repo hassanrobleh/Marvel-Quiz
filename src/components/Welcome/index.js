@@ -16,7 +16,7 @@ const Welcome = (props) => {
     return () => {
       listener();
     };
-  }, []);
+  }, [firebase, props.history]);
 
   return userSession === null ? (
     <Fragment>

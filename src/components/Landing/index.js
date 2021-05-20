@@ -5,7 +5,7 @@ const Landing = () => {
   const [btn, setBtn] = useState(false);
 
   const wolverineRef = useRef();
-  console.log(wolverineRef);
+  //console.log(wolverineRef);
 
   useEffect(() => {
     //   console.log("Je suis dans useEffect");
@@ -13,7 +13,7 @@ const Landing = () => {
     setTimeout(() => {
       wolverineRef.current.classList.remove("startingImg");
       setBtn(true);
-    }, 1000);
+    }, 500);
   }, []);
 
   const setLeftImg = () => {
