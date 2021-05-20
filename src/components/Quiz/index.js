@@ -1,7 +1,11 @@
 import React from "react";
 
 const Quiz = () => {
-  return <div>Quiz</div>;
+  return (
+    <div>
+      <h1>Quiz</h1>
+    </div>
+  );
 };
 
 export default Quiz;
