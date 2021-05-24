@@ -3,7 +3,6 @@ import { FirebaseContext } from "../Firebase";
 import { Link } from "react-router-dom";
 
 const Signup = (props) => {
-  
   const firebase = useContext(FirebaseContext);
   // console.log(firebase);
 
@@ -25,10 +24,16 @@ const Signup = (props) => {
   // Méthode de submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password } = loginData;
+    const { pseudo, email, password } = loginData;
     firebase
       .signupUser(email, password)
-      .then((user) => {
+      .then((authUser) => {
+        return firebase.user(authUser.user.uid).set({
+          pseudo,
+          email,
+        });
+      })
+      .then(() => {
         //console.log(user);
         setLoginData({ ...data });
         props.history.push("/welcome");
