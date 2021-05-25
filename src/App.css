@@ -168,6 +168,12 @@ main {
 }
 /* END TOASTIFY COLOR */
 
+/* toastify-color */
+.toastify-color {
+  color: var(--white-color);
+}
+/* end toastify-color*/
+
 /* FOOTER */
 footer {
   display: flex;
