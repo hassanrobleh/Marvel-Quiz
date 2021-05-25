@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { QuizMarvel } from "../quizMarvel";
 import Levels from "../Levels";
 import ProgressBar from "../ProgressBar";
+import QuizOver from "../QuizOver";
 
 class Quiz extends Component {
   state = {
@@ -18,6 +19,7 @@ class Quiz extends Component {
     userAnswer: null,
     score: 0,
     showWelcomeMsg: false,
+    quizEnd: false,
   };
 
   storedDataRef = React.createRef();
@@ -93,7 +95,7 @@ class Quiz extends Component {
 
   nextQuestion = () => {
     if (this.state.idQuestion === this.state.maxQuestions - 1) {
-      // End
+      this.gameOver();
     } else {
       // Next
       this.setState((prevState) => ({
@@ -134,10 +136,18 @@ class Quiz extends Component {
     }
   };
 
+  gameOver = () => {
+    this.setState({
+      quizEnd: true,
+    });
+  };
+
   render() {
     //const { pseudo } = this.props.userData;
-    return (
-      <div>
+    return this.state.quizEnd ? (
+      <QuizOver />
+    ) : (
+      <>
         {/* <h2>Pseudo: {pseudo}</h2> */}
         <Levels />
         <ProgressBar />
@@ -163,7 +173,7 @@ class Quiz extends Component {
         </button>
 
         <ToastContainer />
-      </div>
+      </>
     );
   }
 }
