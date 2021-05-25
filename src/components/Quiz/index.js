@@ -150,7 +150,10 @@ class Quiz extends Component {
       <>
         {/* <h2>Pseudo: {pseudo}</h2> */}
         <Levels />
-        <ProgressBar />
+        <ProgressBar
+          idQuestion={this.state.idQuestion}
+          maxQuestions={this.state.maxQuestions}
+        />
         <h2>{this.state.question}</h2>
 
         {this.state.options.map((option, index) => (
@@ -169,7 +172,9 @@ class Quiz extends Component {
           disabled={this.state.btnDisable}
           className="btnSubmit"
         >
-          Suivant
+          {this.state.idQuestion < this.state.maxQuestions - 1
+            ? "Suivant"
+            : "Terminer"}
         </button>
 
         <ToastContainer />
