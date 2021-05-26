@@ -5,6 +5,7 @@ import { QuizMarvel } from "../quizMarvel";
 import Levels from "../Levels";
 import ProgressBar from "../ProgressBar";
 import QuizOver from "../QuizOver";
+import { FaChevronRight } from "react-icons/fa";
 
 class Quiz extends Component {
   constructor(props) {
@@ -213,6 +214,7 @@ class Quiz extends Component {
               this.state.userAnswer === option ? "selected" : null
             }`}
           >
+            <FaChevronRight />
             {option}
           </p>
         ))}

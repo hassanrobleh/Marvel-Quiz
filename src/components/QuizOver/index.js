@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { GiTrophyCup } from "react-icons/gi";
 
 const QuizOver = React.forwardRef((props, ref) => {
   // console.log(props);
@@ -33,7 +34,10 @@ const QuizOver = React.forwardRef((props, ref) => {
         <div className="stepsBtnContainer">
           {quizLevel < levelsNames.length ? (
             <>
-              <p className="successMsg">Bravo, vous passez au niveau suivant</p>
+              <p className="successMsg">
+                <GiTrophyCup size="50px" />
+                Bravo, vous passez au niveau suivant
+              </p>
               <button
                 className="btnResult success"
                 onClick={() => loadLevelQuestions(quizLevel)}
