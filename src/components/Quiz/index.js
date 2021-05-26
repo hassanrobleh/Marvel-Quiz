@@ -144,8 +144,8 @@ class Quiz extends Component {
 
   render() {
     //const { pseudo } = this.props.userData;
-    return this.state.quizEnd ? (
-      <QuizOver />
+    return !this.state.quizEnd ? (
+      <QuizOver ref={this.storedDataRef} />
     ) : (
       <>
         {/* <h2>Pseudo: {pseudo}</h2> */}
