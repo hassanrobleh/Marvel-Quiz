@@ -92,7 +92,7 @@ class Quiz extends Component {
     }
 
     if (quizEnd !== prevState.quizEnd) {
-      console.log(score);
+      //console.log(score);
       const gradePercent = this.getPercentage(maxQuestions, score);
       this.gameOver(gradePercent);
     }
