@@ -4,34 +4,57 @@ const QuizOver = React.forwardRef((props, ref) => {
   // console.log(props);
   // console.log(ref);
 
-  const { levelsNames, score, maxQuestions, quizLevel, percent } = props;
+  const {
+    levelsNames,
+    score,
+    maxQuestions,
+    quizLevel,
+    percent,
+    loadLevelQuestions,
+  } = props;
+  //console.log(loadLevelQuestions);
 
   const [asked, setAsked] = useState([]);
-  console.log(asked);
+  //console.log(asked);
 
   useEffect(() => {
     setAsked(ref.current);
   }, [ref]);
 
   const averageGrade = maxQuestions / 2;
+
+  if (score < averageGrade) {
+    setTimeout(() => loadLevelQuestions(quizLevel), 3000);
+  }
+
   const decision =
     score > averageGrade ? (
       <>
         <div className="stepsBtnContainer">
-          {quizLevel < levelsNames.levelsNames.length ? (
+          {quizLevel < levelsNames.length ? (
             <>
               <p className="successMsg">Bravo, vous passez au niveau suivant</p>
-              <button className="btnResult success  ">Niveau Suivant</button>
+              <button
+                className="btnResult success"
+                onClick={() => loadLevelQuestions(quizLevel)}
+              >
+                Niveau Suivant
+              </button>
             </>
           ) : (
             <>
               <p className="successMsg">Bravo, vous êtes un expert</p>
-              <button className="btnResult gameOver  ">Niveau Suivant</button>
+              <button
+                className="btnResult gameOver"
+                onClick={() => loadLevelQuestions(0)}
+              >
+                Accueil
+              </button>
             </>
           )}
         </div>
         <div className="percentage">
-          <div className="progressPercent">Réussite: {percent}%</div>
+          <div className="progressPercent">Réussite: {`${percent}`}%</div>
           <div className="progressPercent">
             Note: {score}/{maxQuestions}
           </div>
@@ -82,6 +105,7 @@ const QuizOver = React.forwardRef((props, ref) => {
             ) : (
               <tr>
                 <td colSpan="3">
+                  <div className="loader"></div>
                   <p style={{ textAlign: "center", color: "red" }}>
                     Pas de réponses!
                   </p>
