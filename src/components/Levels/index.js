@@ -17,8 +17,8 @@ const Levels = ({ levelsNames, quizLevel }) => {
     <div className="levelsContainer" style={{ background: "transparent" }}>
       <Stepper
         steps={levels}
-        activeStep={1}
-        circleTop={quizLevel}
+        activeStep={quizLevel}
+        circleTop={0}
         activeTitleColor={"#d31017"}
         activeColor={"#d31017"}
         completeTitleColor={"#E0E0E0"}
