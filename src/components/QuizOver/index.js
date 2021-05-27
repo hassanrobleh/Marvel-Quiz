@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { GiTrophyCup } from "react-icons/gi";
 import Loader from "../Loader";
 import Modal from "../Modal";
+import * as axios from "axios";
 
 const QuizOver = React.forwardRef((props, ref) => {
   const {
@@ -14,11 +15,12 @@ const QuizOver = React.forwardRef((props, ref) => {
   } = props;
 
   const API_PUBLIC_KEY = process.env.REACT_APP_MARVEL_API_KEY;
-  console.log(API_PUBLIC_KEY);
   const hash = "ba9d47d002bc05374e5a5956d0f4f624";
 
   const [asked, setAsked] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [characterInfo, setCharacterInfo] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setAsked(ref.current);
@@ -26,11 +28,21 @@ const QuizOver = React.forwardRef((props, ref) => {
 
   const showModal = (id) => {
     setOpenModal(true);
-    console.log(id);
+    axios
+      .get(
+        `https://gateway.marvel.com/v1/public/characters/${id}?ts=1&apikey=${API_PUBLIC_KEY}&hash=${hash}`
+      )
+      .then((response) => {
+        setCharacterInfo(response.data);
+        setLoading(false)
+      })
+      .catch((err) => console.log(err));
   };
 
   const closeModal = () => {
     setOpenModal(false);
+    setLoading(true)
+
   };
 
   const averageGrade = maxQuestions / 2;
@@ -90,6 +102,29 @@ const QuizOver = React.forwardRef((props, ref) => {
       </>
     );
 
+  const resultInModal = !loading ? (
+    <>
+      <div className="modalHeader">
+        <h2>{characterInfo.data.results[0].name}</h2>
+      </div>
+      <div className="modalBody">
+        <h3>body</h3>
+      </div>
+      <div className="modalFooter">
+        <button className="modalBtn">Fermer</button>
+      </div>
+    </>
+  ) : (
+    <>
+      <div className="modalHeader">
+        <h2>Réponse de Marvel</h2>
+      </div>
+      <div className="modalBody">
+        <Loader />
+      </div>
+    </>
+  );
+
   return (
     <>
       {decision}
@@ -136,15 +171,7 @@ const QuizOver = React.forwardRef((props, ref) => {
         </table>
       </div>
       <Modal openModal={openModal} closeModal={closeModal}>
-        <div className="modalHeader">
-          <h2>Titre </h2>
-        </div>
-        <div className="modalBody">
-          <h3>body</h3>
-        </div>
-        <div className="modalFooter">
-          <button className="modalBtn">Fermer</button>
-        </div>
+        {resultInModal}
       </Modal>
     </>
   );
